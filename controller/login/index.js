@@ -2,7 +2,6 @@ const userModel = require('../../model');
 const bcrypt = require('bcrypt');
 const { generateJwt } = require('../../jwt')
 
-
 exports.post = async (req, res) => {
     
     const { email, password } = req.body;
