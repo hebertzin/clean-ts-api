@@ -8,14 +8,13 @@ const authMiddleware  = (req, res, next) => {
   const secret = process.env.SECRET_JWT;
   
   if (!token) {
-    return res.status(401).json({ message: 'Token não fornecido.' });
+    return res.status(401).json({ message: 'token not found' });
   }
 
   jwt.verify(token, secret, (err, decoded) => {
     if (err) {
-      return res.status(403).json({ message: 'forncer um token valido.' });
+      return res.status(403).json({ message: 'invalid token' });
     }
-    
     next();
   });
 }

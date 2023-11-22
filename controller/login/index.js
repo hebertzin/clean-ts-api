@@ -14,7 +14,7 @@ exports.post = async (req, res) => {
 
         if(!user){
             return res.json({
-                msg: "invalid email or password"
+                msg: "user not found"
             }).status(401)
         }
     
@@ -34,7 +34,7 @@ exports.post = async (req, res) => {
 
     }catch(error){
         return res.json({
-            msg: 'something wrong',
+            msg: 'something was wrong',
             email,
         })
     }

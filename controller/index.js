@@ -1,18 +1,7 @@
 const user = require('../model');
-const bcrypt = require('bcrypt');
-
-const passwordHash = async (password) => {
-    try{
-        const createHashPassword = await bcrypt.hash(password, 10);
-        return createHashPassword;
-        
-    }catch(error){
-       return console.error(error);
-    }
- }
+const passwordHash = require('../utils/hash');
 
 exports.post = async(req, res) => {
-
      try{
         const { name, email, password } = req.body;
         const hashPassword = await passwordHash(password)
