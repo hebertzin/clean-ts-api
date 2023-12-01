@@ -1,12 +1,11 @@
-const bcrypt = require('bcrypt');
-
+import bcrypt from 'bcrypt';
 export const passwordHash = async (password : string) => {
-    try{
-        const createHashPassword = await bcrypt.hash(password, 10);
-        return createHashPassword;
-        
-    }catch(error){
-       return console.error(error);
-    }
- }
+  try {
+    const createHashPassword = await bcrypt.hash(password, 10);
+    return createHashPassword;
+
+  } catch (error) {
+    return console.error(error);
+  }
+};
 

@@ -1,6 +1,6 @@
-import { passwordHash } from "../utils/hash";
-import user from "../model/index";
-import { Request, Response } from "express";
+import { passwordHash } from '../utils/hash';
+import user from '../model/index';
+import { Request, Response } from 'express';
 
 export const CreateUser = async (req: Request, res: Response) => {
   try {
@@ -11,7 +11,7 @@ export const CreateUser = async (req: Request, res: Response) => {
     if (userExist) {
       return res
         .json({
-          msg: "user already exists",
+          msg: 'user already exists',
         })
         .status(400);
     }
@@ -24,10 +24,11 @@ export const CreateUser = async (req: Request, res: Response) => {
 
     return res
       .json({
-        msg: "user created successfully",
+        msg: 'user created successfully',
         newUser,
       })
       .status(201);
+
   } catch (err) {
     res.json({ err });
   }

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { config } from 'dotenv'
+import { config } from 'dotenv';
 
 config();
 
@@ -11,11 +11,11 @@ const url_database = `mongodb+srv://${user}:${password}@cluster0.1eud56w.mongodb
 mongoose.connect(url_database);
 
 mongoose.connection.on('connected', () => {
-    console.log('conected to database');
+  console.log('conected to database');
 });
 
 mongoose.connection.on('error', (error) => {
-    console.log(`some error ocurred, ${ error } `)
+  console.log(`some error ocurred, ${ error } `);
 });
 
 export default mongoose.connection;
