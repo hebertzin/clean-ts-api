@@ -1,5 +1,5 @@
 import { passwordHash } from '../utils/hash';
-import user from '../model/index';
+import user from '../model';
 import { Request, Response } from 'express';
 
 export const CreateUser = async (req: Request, res: Response) => {
@@ -29,7 +29,7 @@ export const CreateUser = async (req: Request, res: Response) => {
       })
       .status(201);
 
-  } catch (err) {
-    res.json({ err });
+  } catch (error) {
+    res.json({ error });
   }
 };
