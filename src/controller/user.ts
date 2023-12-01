@@ -1,6 +1,7 @@
 import { passwordHash } from "../utils/hash";
 import user from "../model/index";
 import { Request, Response } from "express";
+
 export const CreateUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
