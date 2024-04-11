@@ -3,8 +3,7 @@ import userModel from '../../model/index';
 import bcrypt from 'bcrypt';
 import { generateJwt } from '../../jwt/index';
 
-export const LoginController = async (req: Request, res: Response) => {
-
+export const loginController = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
@@ -23,13 +22,13 @@ export const LoginController = async (req: Request, res: Response) => {
 
     if (!isValidPassword) {
       return res.json({
-        msg: 'invalid email or password',
+        msg: 'Invalid email or password',
       });
     }
 
     return res
       .json({
-        msg: 'user login and generated the token',
+        msg: 'User login and generated the token',
         email,
         token,
       })
@@ -37,7 +36,7 @@ export const LoginController = async (req: Request, res: Response) => {
   } catch (error) {
     return res
       .json({
-        msg: 'something was wrong',
+        msg: 'Something was wrong',
         email,
       })
       .status(400);

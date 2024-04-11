@@ -2,18 +2,18 @@ import { passwordHash } from '../utils/hash';
 import user from '../model';
 import { Request, Response } from 'express';
 
-export const CreateUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
+
     const hashPassword = await passwordHash(password);
+
     const userExist = await user.findOne({ email });
 
     if (userExist) {
-      return res
-        .json({
-          msg: 'user already exists',
-        })
-        .status(400);
+      return res.status(404).json({
+        msg: 'User already exists',
+      });
     }
 
     const newUser = await user.create({
@@ -23,13 +23,13 @@ export const CreateUser = async (req: Request, res: Response) => {
     });
 
     return res
+      .status(201)
       .json({
-        msg: 'user created successfully',
+        msg: 'User created successfully',
         newUser,
       })
       .status(201);
-
   } catch (error) {
-    res.json({ error });
+    return res.status(500).json({ error });
   }
 };
