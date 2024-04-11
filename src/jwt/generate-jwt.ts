@@ -39,7 +39,7 @@ export const generateJwt = async (
   } catch (error) {
     logger.log({
       level: 'error',
-      message: 'Some error ocurred trying generate token',
+      message: 'Some error ocurred',
     });
     throw error;
   }

@@ -25,9 +25,9 @@ export const loginController = async (req: Request, res: Response) => {
       });
     }
 
-    const { token } = await generateJwt({ data: user?._id });
-
     const isValidPassword = await bcrypt.compare(password, user.password);
+
+    const { token } = await generateJwt({ data: user?._id });
 
     if (!isValidPassword) {
       return res.status(401).json({

@@ -23,7 +23,7 @@ export const authMiddleware = (
   const secret = env.SECRET_JWT as string;
 
   if (!token) {
-    return res.status(400).json({ message: 'Token not found' });
+    return res.status(401).json({ message: 'Token not found' });
   }
 
   jwt.verify(token, secret, (err) => {

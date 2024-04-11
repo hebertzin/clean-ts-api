@@ -29,13 +29,10 @@ export const createUser = async (req: Request, res: Response) => {
 
     const userCreated = new User({ name, email, password: hashPassword });
 
-    return res
-      .status(201)
-      .json({
-        message: 'User created successfully',
-        user: userCreated,
-      })
-      .status(201);
+    return res.status(201).json({
+      message: 'User created successfully',
+      user: userCreated,
+    });
   } catch (error) {
     return res.status(500).json({
       message: 'Internal server error',
