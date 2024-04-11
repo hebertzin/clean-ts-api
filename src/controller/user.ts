@@ -1,22 +1,32 @@
 import { passwordHash } from '../utils/hash';
 import user from '../model';
 import { Request, Response } from 'express';
+import { z } from 'zod';
+
+const schemaValidation = z.object({
+  name: z.string().min(1, { message: 'Name cannot be empy' }),
+  email: z
+    .string()
+    .email({ message: 'Must be a valid email' })
+    .min(1, { message: 'Email cannot be empty' }),
+  password: z.string().min(1, { message: 'Password cannot be empty' }),
+});
 
 export const createUser = async (req: Request, res: Response) => {
-  try {
-    const { name, email, password } = req.body;
+  const { name, email, password } = schemaValidation.parse(req.body);
 
+  try {
     const hashPassword = await passwordHash(password);
 
     const userExist = await user.findOne({ email });
 
     if (userExist) {
       return res.status(404).json({
-        msg: 'User already exists',
+        message: 'User already exists',
       });
     }
 
-    const newUser = await user.create({
+    const userCreated = await user.create({
       name,
       email,
       password: hashPassword,
@@ -25,11 +35,14 @@ export const createUser = async (req: Request, res: Response) => {
     return res
       .status(201)
       .json({
-        msg: 'User created successfully',
-        newUser,
+        message: 'User created successfully',
+        user: userCreated,
       })
       .status(201);
   } catch (error) {
-    return res.status(500).json({ error });
+    return res.status(500).json({
+      message: 'Internal server error',
+      error,
+    });
   }
 };
