@@ -7,22 +7,27 @@ import { env } from './env';
 import { logger } from './logger';
 import { zodErrorMiddleware } from './middlewares/zod-error-middleware';
 import { logResponseTime } from './middlewares/log-response-middleware';
+import swaggerUi from 'swagger-ui-express';
+import specs from './swagger';
+import bodyParser from 'body-parser';
 
 const app = express();
+
+app.use(routes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(authMiddleware);
 app.use(logResponseTime);
 app.use(zodErrorMiddleware);
-app.use(routes);
 
-db.on('conected', () => {
-  logger.info('Successfully connected');
+db.on('connected', () => {
+  logger.info('Connected in database');
 });
 
 db.on('error', (error) => {
-  logger.error(`Erro connecting ${error}`);
+  logger.error('Some error ocured try connect in database', error);
 });
 
 app.listen(env.PORT, () => {
