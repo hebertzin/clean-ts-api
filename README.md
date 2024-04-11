@@ -31,3 +31,11 @@ você pode conferir como o projeto está estruturado em `docs/structure.md`.
 - Crie um arquivo `.env` e configure as variáveis de ambiente corretamente, você pode conferir em `.env.exemple` quais são as variáveis necessárias para o projeto.
 - Tudo configurado ? agora você pode rodar o comando `npm run dev` e pronto !
 - Depois é so configurar a url do cluster no projeto com a sua url, que está no diretório `database/index.ts`
+
+  ## swagger
+
+ Depois de rodar o servidor você terá acesso a documentação do projeto no endpoint `/api-docs` lá terá os endpoints,
+ parâmetros das requisições, dados necessários, status code e respostas.
+
+ Fique de olho no terminal(opcional), pois implementei um middleware para logar o tempo que as requisições levaram para serem executadas e outros dados.
+ Isso é util pra fazer algumas análises, salvar esses dados em algum lugar, ou criar outra api que utiliza desses dados para exibir em um frontend, **vai da sua imaginação** !
