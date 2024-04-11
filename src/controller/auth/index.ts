@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import userModel from '../../model/index';
+import { User } from '../../model/index';
 import bcrypt from 'bcrypt';
-import { generateJwt } from '../../jwt/index';
+import { generateJwt } from '../../jwt/generate-jwt';
 import { z } from 'zod';
 
 const schemaValidation = z.object({
@@ -16,6 +16,7 @@ export const loginController = async (req: Request, res: Response) => {
   const { email, password } = schemaValidation.parse(req.body);
 
   try {
+    const userModel = User;
     const user = await userModel.findOne({ email });
 
     if (!user) {

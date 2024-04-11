@@ -11,6 +11,7 @@ import { config } from 'dotenv';
 config();
 import cors from 'cors';
 import { env } from './env';
+import { logger } from './logger';
 
 app.use(cors());
 app.use(express.json());
@@ -19,13 +20,16 @@ app.use(authMiddleware);
 app.use(routes);
 
 db.on('conected', () => {
-  console.log('successfully connected');
+  logger.info('successfully connected');
 });
 
 db.on('error', (error) => {
-  console.log(`error connecting ${error}`);
+  logger.error(`error connecting ${error}`);
 });
 
 app.listen(env.PORT, () => {
-  console.log('Server is running');
+  logger.log({
+    level: 'info',
+    message: 'Server is running seucessfully',
+  });
 });

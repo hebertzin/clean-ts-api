@@ -1,5 +1,5 @@
 import { passwordHash } from '../../utils/generate-hash';
-import user from '../../model';
+import { User } from '../../model';
 import { Request, Response } from 'express';
 import { z } from 'zod';
 
@@ -16,9 +16,10 @@ export const createUser = async (req: Request, res: Response) => {
   const { name, email, password } = schemaValidation.parse(req.body);
 
   try {
+    const userModel = User;
     const hashPassword = await passwordHash(password);
 
-    const userExist = await user.findOne({ email });
+    const userExist = await userModel.findOne({ email });
 
     if (userExist) {
       return res.status(404).json({
@@ -26,11 +27,7 @@ export const createUser = async (req: Request, res: Response) => {
       });
     }
 
-    const userCreated = await user.create({
-      name,
-      email,
-      password: hashPassword,
-    });
+    const userCreated = new User({ name, email, password: hashPassword });
 
     return res
       .status(201)

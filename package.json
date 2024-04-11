@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/app.ts",
     "lint": "prettier --write .",
     "prepare": "husky"
   },
@@ -22,6 +22,7 @@
     "node": "^21.2.0",
     "ts": "^0.0.0",
     "ts-node": "^10.9.1",
+    "winston": "^3.13.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
