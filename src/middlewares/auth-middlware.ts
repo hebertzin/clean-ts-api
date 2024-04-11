@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { env } from '../env';
-
 /**
  *
  * @param req Express request interface
@@ -10,15 +9,19 @@ import { env } from '../env';
  * @returns void
  *
  */
-export const authMiddleware = (
+export const authMiddleware = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   const header = req.headers['authorization'];
 
+  if (req.path == '/api-docs') {
+    return next();
+  }
+
   // format in header is `Bearer tokenjwt`
-  // use method split to transform the string in an array of string and get only token
+  // use method split to transform the string in an array of strings and get only token
   const token = header && header.split(' ')[1];
   const secret = env.SECRET_JWT as string;
 
