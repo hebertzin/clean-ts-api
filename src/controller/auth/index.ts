@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from '../../model/index';
 import bcrypt from 'bcrypt';
-import { generateJwt } from '../../jwt/index';
+import { generateJwt } from '../../jwt/generate-jwt';
 import { z } from 'zod';
 
 const schemaValidation = z.object({
