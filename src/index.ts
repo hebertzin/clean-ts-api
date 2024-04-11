@@ -1,4 +1,5 @@
 import express from 'express';
+import { authMiddleware } from './middlewares/auht-middlware';
 const app = express();
 
 import routes from './routes';
@@ -14,6 +15,7 @@ import { env } from './env';
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(authMiddleware);
 app.use(routes);
 
 db.on('conected', () => {
