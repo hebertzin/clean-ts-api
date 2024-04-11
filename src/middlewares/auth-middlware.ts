@@ -18,7 +18,7 @@ export const authMiddleware = (
   const header = req.headers['authorization'];
 
   // format in header is `Bearer tokenjwt`
-  // use method split to remove the part `Bearer` and get only token
+  // use method split to transform the string in an array of string and get only token
   const token = header && header.split(' ')[1];
   const secret = env.SECRET_JWT as string;
 

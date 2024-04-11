@@ -20,24 +20,22 @@ export const loginController = async (req: Request, res: Response) => {
     const user = await userModel.findOne({ email });
 
     if (!user) {
-      return res
-        .json({
-          message: 'User not found',
-        })
-        .status(401);
+      return res.status(404).json({
+        message: 'User not found',
+      });
     }
 
-    const token = generateJwt(user?._id);
+    const { token } = await generateJwt({ data: user?._id });
 
     const isValidPassword = await bcrypt.compare(password, user.password);
 
     if (!isValidPassword) {
-      return res.json({
+      return res.status(401).json({
         message: 'Credential are invalid',
       });
     }
 
-    return res.status(201).json({
+    return res.status(200).json({
       message: 'User login and generated the token',
       token,
       user,
