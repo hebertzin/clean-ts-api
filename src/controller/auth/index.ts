@@ -27,13 +27,13 @@ export const loginController = async (req: Request, res: Response) => {
 
     const isValidPassword = await bcrypt.compare(password, user.password);
 
-    const { token } = await generateJwt({ data: user?._id });
-
     if (!isValidPassword) {
       return res.status(401).json({
         message: 'Credential are invalid',
       });
     }
+
+    const { token } = await generateJwt({ data: user?._id });
 
     return res.status(200).json({
       message: 'User login and generated the token',
