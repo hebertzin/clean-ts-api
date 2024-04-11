@@ -6,12 +6,14 @@ import cors from 'cors';
 import { env } from './env';
 import { logger } from './logger';
 import { zodErrorMiddleware } from './middlewares/zod-error-middleware';
+import { logResponseTime } from './middlewares/log-response-middleware';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(authMiddleware);
+app.use(logResponseTime);
 app.use(zodErrorMiddleware);
 app.use(routes);
 
