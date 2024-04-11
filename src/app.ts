@@ -1,5 +1,5 @@
 import express from 'express';
-import { authMiddleware } from './middlewares/auht-middlware';
+import { authMiddleware } from './middlewares/auth-middlware';
 const app = express();
 
 import routes from './routes';

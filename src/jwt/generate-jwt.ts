@@ -1,20 +1,46 @@
-import jwt from 'jsonwebtoken';
-import { config } from 'dotenv';
+import jwt, { SignOptions } from 'jsonwebtoken';
+import { env } from '../env';
+import { logger } from '../logger';
 import mongoose from 'mongoose';
 
-config();
+interface Payload {
+  data: mongoose.Types.ObjectId;
+}
 
-export const generateJwt = async (id: mongoose.Types.ObjectId | undefined) => {
+interface GenerateTokenReturnType {
+  token: string;
+}
+
+/**
+ * @param id
+ * @returns token
+ * @throws error
+ */
+
+export const generateJwt = async (
+  payload: Payload,
+): Promise<GenerateTokenReturnType> => {
   try {
+    const options: SignOptions = { expiresIn: '1d' };
+
     const token = jwt.sign(
-      { id },
-      process.env.SECRET_JWT || '075bc8899ea9f527b763ab37fceeff5f',
-      {
-        expiresIn: '1d',
-      },
+      { data: payload },
+      env.SECRET_JWT || '075bc8899ea9f527b763ab37fceeff5f',
+      options,
     );
-    return token.toString();
+
+    /*
+        This token will be used to log the user into the system,
+        without it, the user will not have access to resources
+    */
+    return {
+      token,
+    };
   } catch (error) {
-    return error;
+    logger.log({
+      level: 'error',
+      message: 'Some error ocurred trying generate token',
+    });
+    throw error;
   }
 };

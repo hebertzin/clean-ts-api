@@ -30,3 +30,4 @@ você pode conferir como o projeto está estruturado em `docs/structure.md`.
 - Navegue até o projeto e instale as dependências com o comando `npm install` ou `npm i`
 - Crie um arquivo `.env` e configure as variáveis de ambiente corretamente, você pode conferir em `.env.exemple` quais são as variáveis necessárias para o projeto.
 - Tudo configurado ? agora você pode rodar o comando `npm run dev` e pronto !
+- Depois é so configurar a url do cluster no projeto com a sua url, que está no diretório `database/index.ts`
