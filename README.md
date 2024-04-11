@@ -2,22 +2,31 @@
 
 Api básica possuindo funcionalidades relacionadas a autenticação de usuários .
 
-Está bem simples,  ideal pra quem está começando no desenvolvimento backend.
+Está bem simples, ideal pra quem está começando no desenvolvimento backend.
 você pode conferir como o projeto está estruturado em `docs/structure.md`.
 
 ## tecnologias utilizadas
+
 - Node js
 - Typescript
 - Express
-- jsonwebtoken
+- Jwt
+- Zod
 - MongoDB
+- Prettier
+- Eslint
+- Husky
 
   ## Funcionalidades
-  
-- [x] criar um usuário.
-- [x] logar o usuário gerando um token de acesso.
-- [x] validar se o token é válido
-- [x] validar se o token está presente no header da requisição  
 
+- [x] Criar um usuário.
+- [x] Logar o usuário gerando um token de acesso.
+- [x] Validar se o token é válido
+- [x] Vlidar se o token está presente no header da requisição
 
+## Como rodar este projeto ?
 
+- Primeiro clone este reposiório `git clone https://github.com/hebertsanto/API-authentication.git`
+- Navegue até o projeto e instale as dependências com o comando `npm install` ou `npm i`
+- Crie um arquivo `.env` e configure as variáveis de ambiente corretamente, você pode conferir em `.env.exemple` quais são as variáveis necessárias para o projeto.
+- Tudo configurado ? agora você pode rodar o comando `npm run dev` e pronto !
