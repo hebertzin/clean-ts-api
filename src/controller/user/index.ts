@@ -1,5 +1,5 @@
-import { passwordHash } from '../utils/hash';
-import user from '../model';
+import { passwordHash } from '../../utils/generate-hash';
+import user from '../../model';
 import { Request, Response } from 'express';
 import { z } from 'zod';
 
