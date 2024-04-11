@@ -1,10 +1,7 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
-import { config } from 'dotenv';
 import { env } from '../env';
 import { logger } from '../logger';
 import mongoose from 'mongoose';
-
-config();
 
 interface Payload {
   data: mongoose.Types.ObjectId;
