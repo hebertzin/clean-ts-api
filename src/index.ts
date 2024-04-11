@@ -1,31 +1,29 @@
 import express from 'express';
 const app = express();
 
-
 import routes from './routes';
 
-import db  from './database/index';
+import db from './database';
 
-import { config }  from 'dotenv';
+import { config } from 'dotenv';
 
 config();
 import cors from 'cors';
+import { env } from './env';
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded( { extended:true } ));
+app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 db.on('conected', () => {
   console.log('successfully connected');
 });
 
-db.on('error', ( error ) => {
+db.on('error', (error) => {
   console.log(`error connecting ${error}`);
 });
 
-const port = process.env.PORT;
-
-app.listen(port, () => {
-  console.log(`sever is running on port ${ port }`);
+app.listen(env.PORT, () => {
+  console.log('Server is running');
 });

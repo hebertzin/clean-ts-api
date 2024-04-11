@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { config } from 'dotenv';
 import jwt from 'jsonwebtoken';
+import { env } from '../env';
 
 config();
 
@@ -10,8 +11,9 @@ export const authMiddleware = (
   next: NextFunction,
 ) => {
   const header = req.headers['authorization'];
+
   const token = header && header.split(' ')[1];
-  const secret = process.env.SECRET_JWT as string;
+  const secret = env.SECRET_JWT as string;
 
   if (!token) {
     return res.status(401).json({ message: 'Token not found' });
