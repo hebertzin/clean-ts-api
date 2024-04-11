@@ -1,8 +1,8 @@
 ## visão geral da api de autenticação
 
-Api básica possuindo funcionalidades relacionadas a autenticação de usuários .
+Api básica possuindo funcionalidades relacionadas a autenticação de usuários, validação de token, e geração de hash.
 
-Está bem simples, ideal pra quem está começando no desenvolvimento backend.
+Esta bem simples, ideal pra quem está começando no desenvolvimento backend.
 você pode conferir como o projeto está estruturado em `docs/structure.md`.
 
 ## tecnologias utilizadas
