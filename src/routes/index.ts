@@ -1,9 +1,10 @@
-import express from 'express';
+import { Router } from 'express';
 
-const router = express.Router();
+const router = Router();
 
 import { createUser } from '../controller/user';
 import { loginController } from '../controller/auth/index';
+import { authMiddleware } from '../middlewares/auth-middlware';
 
 /**
  * @openapi
@@ -70,5 +71,11 @@ router.post('/user/register', createUser);
  *         description: Internal server error
  */
 router.post('/auth/login', loginController);
+
+//this is a private route
+
+router.get('/user', authMiddleware, (req, res) => {
+  return res.json({ message: 'private route' });
+});
 
 export default router;

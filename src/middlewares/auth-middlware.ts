@@ -1,6 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+
 import { env } from '../env';
+
+interface User {
+  id: string;
+  user: string;
+}
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Express {
+    interface Request {
+      user?: User;
+    }
+  }
+}
+
 /**
  *
  * @param req Express request interface
@@ -29,10 +45,12 @@ export const authMiddleware = async (
     return res.status(401).json({ message: 'Token not found' });
   }
 
-  jwt.verify(token, secret, (err) => {
+  jwt.verify(token, secret, (err, decoded) => {
     if (err) {
       return res.status(403).json({ message: 'Invalid token' });
     }
+
+    req.user = decoded as User;
     next();
   });
 };
