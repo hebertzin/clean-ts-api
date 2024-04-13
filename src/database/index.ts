@@ -5,7 +5,7 @@ import { env } from '../env';
 const user = env.USER_DATABASE;
 const password = env.PASSWORD_DATABASE;
 
-const url_database = `mongodb+srv://${user}:${password}@cluster0.1eud56w.mongodb.net/?retryWrites=true&w=majority`;
+const url_database = `mongodb+srv://${user}:${password}@cluster0.1eud56w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
 mongoose.connect(url_database);
 

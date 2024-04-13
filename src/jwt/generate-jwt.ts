@@ -3,8 +3,13 @@ import { env } from '../env';
 import { logger } from '../logger';
 import mongoose from 'mongoose';
 
+interface User {
+  id: mongoose.Types.ObjectId;
+  user: string;
+}
+
 interface Payload {
-  data: mongoose.Types.ObjectId;
+  user: User;
 }
 
 interface GenerateTokenReturnType {
@@ -18,13 +23,15 @@ interface GenerateTokenReturnType {
  */
 
 export const generateJwt = async (
-  payload: Payload,
+  user: User,
 ): Promise<GenerateTokenReturnType> => {
   try {
     const options: SignOptions = { expiresIn: '1d' };
 
+    const payload: Payload = { user };
+
     const token = jwt.sign(
-      { data: payload },
+      payload,
       env.SECRET_JWT || '075bc8899ea9f527b763ab37fceeff5f',
       options,
     );
