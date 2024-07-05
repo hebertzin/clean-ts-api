@@ -27,7 +27,7 @@
     "swagger-jsdoc": "^5.0.1",
     "swagger-ui-express": "^5.0.0",
     "ts": "^0.0.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
     "winston": "^3.13.0",
     "winston-color": "^1.0.0",
