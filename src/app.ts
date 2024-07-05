@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logResponseTime);
 app.use(zodErrorMiddleware);
-app.use(authRouter);
+app.use('/api/v1', authRouter);
 
 db.on('connected', () => {
   logger.info('Connected in database');
