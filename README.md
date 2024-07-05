@@ -17,12 +17,18 @@ you can check how the project is structured in `docs/structure.md`.
 - Eslint
 - Husky
 
- ## Functionalities
+## Functionalities
 
 - [x] Create a user.
 - [x] Log the user in by generating an access token.
 - [x] Validate if the token is valid
 - [x] Check if the token is present in the request header
+- [] It is possible log out
+
+## **Endpoints**
+
+- **POST** `/api/v1/authentication/user/register`: Register a user
+- **POST** `/api/v1/authentication/user/sign-in` : Log in a user and generate a token access
 
 ## How to run this project?
 
@@ -32,7 +38,7 @@ you can check how the project is structured in `docs/structure.md`.
 - Everything configured? Now you can run the command `npm run dev` and that's it!
 - Then just configure the cluster url in the project with your url, which is in the `database/index.ts` directory
 
- ## swagger
+## swagger
 
- After running the server you will have access to the project documentation at the endpoint `/api-docs` there you will have the endpoints,
- request parameters, required data, status code and responses.
+After running the server you will have access to the project documentation at the endpoint `/api-docs` there you will have the endpoints,
+request parameters, required data, status code and responses.
