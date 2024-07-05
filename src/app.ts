@@ -8,7 +8,7 @@ import { logResponseTime } from './middlewares/log-response-middleware';
 import swaggerUi from 'swagger-ui-express';
 import specs from './swagger';
 import bodyParser from 'body-parser';
-import router from './routes';
+import authRouter from './routes';
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logResponseTime);
 app.use(zodErrorMiddleware);
-app.use(router);
+app.use(authRouter);
 
 db.on('connected', () => {
   logger.info('Connected in database');
