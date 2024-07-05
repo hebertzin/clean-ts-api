@@ -7,7 +7,8 @@
     "start:dev": "nodemon src/app.ts",
     "start:prod": "npm run build & node dist/app.js",
     "build": "tsc",
-    "lint": "prettier --write .",
+    "docker:build": "docker build -t Authentication-service -f docker/Dockerfile .",
+    "format": "prettier --write .",
     "prepare": "husky"
   },
   "keywords": [],
@@ -26,9 +27,8 @@
     "swagger-jsdoc": "^5.0.1",
     "swagger-ui-express": "^5.0.0",
     "ts": "^0.0.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsc": "^2.0.4",
-    "typescript": "^5.5.3",
     "winston": "^3.13.0",
     "winston-color": "^1.0.0",
     "zod": "^3.22.4"
@@ -46,6 +46,7 @@
     "@typescript-eslint/parser": "^6.13.1",
     "eslint": "^8.54.0",
     "husky": "^9.0.11",
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "typescript": "^5.5.3"
   }
 }
