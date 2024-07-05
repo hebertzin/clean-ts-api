@@ -1,11 +1,11 @@
-## visão geral da api de autenticação
+## Authentication service
 
-Api básica possuindo funcionalidades relacionadas a autenticação de usuários, validação de token, e geração de hash.
+Basic API with functionalities related to user authentication, token validation, and hash generation.
 
-Esta bem simples, ideal pra quem está começando no desenvolvimento backend.
-você pode conferir como o projeto está estruturado em `docs/structure.md`.
+It's very simple, ideal for those just starting out in backend development.
+you can check how the project is structured in `docs/structure.md`.
 
-## tecnologias utilizadas
+## technologies used
 
 - Node js
 - Typescript
@@ -17,25 +17,22 @@ você pode conferir como o projeto está estruturado em `docs/structure.md`.
 - Eslint
 - Husky
 
-  ## Funcionalidades
+ ## Functionalities
 
-- [x] Criar um usuário.
-- [x] Logar o usuário gerando um token de acesso.
-- [x] Validar se o token é válido
-- [x] Vlidar se o token está presente no header da requisição
+- [x] Create a user.
+- [x] Log the user in by generating an access token.
+- [x] Validate if the token is valid
+- [x] Check if the token is present in the request header
 
-## Como rodar este projeto ?
+## How to run this project?
 
-- Primeiro clone este reposiório `git clone https://github.com/hebertsanto/API-authentication.git`
-- Navegue até o projeto e instale as dependências com o comando `npm install` ou `npm i`
-- Crie um arquivo `.env` e configure as variáveis de ambiente corretamente, você pode conferir em `.env.exemple` quais são as variáveis necessárias para o projeto.
-- Tudo configurado ? agora você pode rodar o comando `npm run dev` e pronto !
-- Depois é so configurar a url do cluster no projeto com a sua url, que está no diretório `database/index.ts`
+- First clone this repository `git clone https://github.com/hebertsanto/API-authentication.git`
+- Navigate to the project and install dependencies with the `npm install` or `npm i` command
+- Create a `.env` file and configure the environment variables correctly, you can check in `.env.exemple` which variables are necessary for the project.
+- Everything configured? Now you can run the command `npm run dev` and that's it!
+- Then just configure the cluster url in the project with your url, which is in the `database/index.ts` directory
 
-  ## swagger
+ ## swagger
 
- Depois de rodar o servidor você terá acesso a documentação do projeto no endpoint `/api-docs` lá terá os endpoints,
- parâmetros das requisições, dados necessários, status code e respostas.
-
- Fique de olho no terminal(opcional), pois implementei um middleware para logar o tempo que as requisições levaram para serem executadas e outros dados.
- Isso é util pra fazer algumas análises, salvar esses dados em algum lugar, ou criar outra api que utiliza desses dados para exibir em um frontend, **vai da sua imaginação** !
+ After running the server you will have access to the project documentation at the endpoint `/api-docs` there you will have the endpoints,
+ request parameters, required data, status code and responses.
