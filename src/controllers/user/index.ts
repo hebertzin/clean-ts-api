@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { z } from 'zod';
 import { HandleRequestController } from '../../utils/request-controller';
 import { RegisterUserService } from '../../services/users/register-user';
+import UserRepository from '../../repository/users';
 
 const schemaValidation = z.object({
   name: z.string().min(1, { message: 'Name cannot be empy' }),
@@ -29,3 +30,7 @@ export class RegisterUser implements HandleRequestController {
     }
   }
 }
+
+export const registerAccountHandler = new RegisterUser(
+  new RegisterUserService(new UserRepository()),
+);
