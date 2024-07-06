@@ -13,10 +13,16 @@ export class RegisterUserService {
     if (!user) {
       throw new Error('Missing params');
     }
-    const existentUser = await this.userRepository.findUserByEmail(user.email);
-    if (existentUser) {
-      throw new Error('User already exists');
+    try {
+      const existentUser = await this.userRepository.findUserByEmail(
+        user.email,
+      );
+      if (existentUser) {
+        throw new Error('User already exists');
+      }
+      return await this.userRepository.create(user);
+    } catch (e) {
+      throw new Error('Some error has been ocurred');
     }
-    return await this.userRepository.create(user);
   }
 }
