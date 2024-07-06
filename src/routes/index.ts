@@ -12,6 +12,6 @@ authRouter.post(
   },
 );
 
-authRouter.post('/authentication/user/sign-in', loginController);
+authRouter.post('/authentication/user/access-token', loginController);
 
 export default authRouter;
