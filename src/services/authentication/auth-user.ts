@@ -1,15 +1,14 @@
 import UserRepository from '../../repository/users';
 
-export type UserDetails = {
-  name: string;
+export type User = {
   password: string;
   email: string;
 };
 
-export class RegisterUserService {
+export class AuthUserService {
   constructor(private userRepository: UserRepository) {}
 
-  async invoke(user: UserDetails): Promise<UserDetails> {
+  async invoke(user: User) {
     if (!user) {
       throw new Error('Missing params');
     }
@@ -17,10 +16,9 @@ export class RegisterUserService {
       const existentUser = await this.userRepository.findUserByEmail(
         user.email,
       );
-      if (existentUser) {
-        throw new Error('User already exists');
+      if (!existentUser) {
+        throw new Error('User does not exists');
       }
-      return await this.userRepository.create(user);
     } catch (e) {
       throw new Error('Some error has been ocurred');
     }
