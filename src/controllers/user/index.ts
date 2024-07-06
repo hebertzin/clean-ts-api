@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { HandleRequestController } from '../../utils/request-controller';
 import { RegisterUserService } from '../../services/users/register-user';
 import UserRepository from '../../repository/users';
+import { HttpStatusCode } from '../../utils/http-status-code';
 
 const schemaValidation = z.object({
   name: z.string().min(1, { message: 'Name cannot be empy' }),
@@ -24,9 +25,9 @@ export class RegisterUser implements HandleRequestController {
         name,
         password,
       });
-      return res.status(201).send();
+      return res.status(HttpStatusCode.Created).send();
     } catch (error) {
-      return res.status(500).json({ error });
+      return res.status(HttpStatusCode.InternalServerError).json({ error });
     }
   }
 }
