@@ -1,7 +1,7 @@
-import { passwordHash } from '../../utils/generate-hash';
-import { User } from '../../model';
 import { Request, Response } from 'express';
 import { z } from 'zod';
+import { HandleRequestController } from '../../utils/request-controller';
+import { RegisterUserService } from '../../services/users/register-user';
 
 const schemaValidation = z.object({
   name: z.string().min(1, { message: 'Name cannot be empy' }),
@@ -12,31 +12,20 @@ const schemaValidation = z.object({
   password: z.string().min(1, { message: 'Password cannot be empty' }),
 });
 
-export const createUser = async (req: Request, res: Response) => {
-  const { name, email, password } = schemaValidation.parse(req.body);
+export class RegisterUser implements HandleRequestController {
+  constructor(private createUserService: RegisterUserService) {}
 
-  try {
-    const userModel = User;
-    const hashPassword = await passwordHash(password);
-
-    const userExist = await userModel.findOne({ email });
-
-    if (userExist) {
-      return res.status(409).json({
-        message: 'User already exists',
+  async handle(req: Request, res: Response): Promise<Response> {
+    const { name, email, password } = schemaValidation.parse(req.body);
+    try {
+      await this.createUserService.invoke({
+        email,
+        name,
+        password,
       });
+      return res.status(201).send();
+    } catch (error) {
+      return res.status(500).json({ error });
     }
-
-    const userCreated = new User({ name, email, password: hashPassword });
-
-    return res.status(201).json({
-      message: 'User created successfully',
-      user: userCreated,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      message: 'Internal server error',
-      error,
-    });
   }
-};
+}
