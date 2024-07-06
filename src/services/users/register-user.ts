@@ -8,7 +8,15 @@ export type UserDetails = {
 
 export class RegisterUserService {
   constructor(private userRepository: UserRepository) {}
-  async invoke(user: UserDetails) {
-    return this.userRepository.create(user);
+
+  async invoke(user: UserDetails): Promise<UserDetails> {
+    if (!user) {
+      throw new Error('Missing params');
+    }
+    const existentUser = await this.userRepository.findUserByEmail(user.email);
+    if (existentUser) {
+      throw new Error('User already exists');
+    }
+    return await this.userRepository.create(user);
   }
 }
