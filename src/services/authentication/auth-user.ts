@@ -1,5 +1,6 @@
 import { GenerateTokenReturnType, JwtService } from '../../jwt/generate-jwt';
 import UserRepository from '../../repository/users';
+import bcrypt from 'bcrypt';
 
 export type User = {
   password: string;
@@ -22,6 +23,15 @@ export class AuthUserService {
       );
       if (!existentUser) {
         throw new Error('User does not exists');
+      }
+
+      const isValidPassword = await bcrypt.compare(
+        existentUser.password,
+        user.password,
+      );
+
+      if (!isValidPassword) {
+        throw new Error('Invalid Credentials');
       }
 
       const accessToken = await this.jwtService.generateJwt({
