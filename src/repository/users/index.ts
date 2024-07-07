@@ -11,7 +11,8 @@ class UserRepository {
     password: string;
   }): Promise<IUser> {
     const user = new User({ name, email, password });
-    return user;
+
+    return user.save();
   }
 
   async findUserByEmail(email: string): Promise<IUser | null> {
