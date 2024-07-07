@@ -7,9 +7,7 @@ import { registerAccountHandler } from '../controllers/user';
 
 authRouter.post(
   '/authentication/user/register',
-  async (req: Request, res: Response) => {
-    return await registerAccountHandler.handle(req, res);
-  },
+  registerAccountHandler.handle.bind(registerAccountHandler),
 );
 
 authRouter.post(

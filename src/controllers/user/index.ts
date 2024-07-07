@@ -20,12 +20,12 @@ export class RegisterUser implements HandleRequestController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, email, password } = schemaValidation.parse(req.body);
     try {
-      await this.createUserService.invoke({
+      const user = await this.createUserService.invoke({
         email,
         name,
         password,
       });
-      return res.status(HttpStatusCode.Created).send();
+      return res.status(HttpStatusCode.Created).json(user);
     } catch (error) {
       return res.status(HttpStatusCode.InternalServerError).json({ error });
     }
