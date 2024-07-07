@@ -3,7 +3,6 @@ import db from './database';
 import cors from 'cors';
 import { env } from './env';
 import { logger } from './logger';
-
 import { logResponseTime } from './middlewares/log-response-middleware';
 import swaggerUi from 'swagger-ui-express';
 import specs from './swagger';
@@ -21,7 +20,11 @@ db.on('error', (error) => {
 });
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.ORIGIN_URL,
+  }),
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logResponseTime);
