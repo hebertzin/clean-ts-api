@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon src/app.ts",
-    "start:prod": "npm run build & node dist/app.js",
+    "start:prod": "npm run build && node dist/app.js",
     "build": "tsc",
     "docker:build": "docker build -t Authentication-service -f docker/Dockerfile .",
     "format": "prettier --write .",

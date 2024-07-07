@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 
 const authRouter = Router();
 
@@ -12,9 +12,7 @@ authRouter.post(
 
 authRouter.post(
   '/authentication/user/access-token',
-  async (req: Request, res: Response) => {
-    return authControllerHandler.handle(req, res);
-  },
+  authControllerHandler.handle.bind(authControllerHandler),
 );
 
 export default authRouter;
