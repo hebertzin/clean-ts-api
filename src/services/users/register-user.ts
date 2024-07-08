@@ -1,6 +1,7 @@
 import UserRepository from '../../repository/users';
 import { HttpStatusCode } from '../../utils/http-status-code';
 import { AppError, UserAlreadyExistError } from '../errors';
+import bcrypt from 'bcrypt';
 
 export type UserDetails = {
   name: string;
@@ -24,8 +25,15 @@ export class RegisterUserService {
         HttpStatusCode.Conflict,
       );
     }
+
+    const passwordHash = await bcrypt.hash(user.password, 10);
+
     try {
-      return await this.userRepository.create(user);
+      return await this.userRepository.create({
+        email: user.email,
+        name: user.name,
+        password: passwordHash,
+      });
     } catch (e) {
       throw new AppError(
         'Some error creating user',
