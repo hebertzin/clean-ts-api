@@ -15,16 +15,12 @@ export interface GenerateTokenReturnType {
   token: string;
 }
 
-interface Env {
-  SECRET_JWT: string;
-}
-
 export class JwtService {
   private readonly secret: string;
   private readonly logger: Logger;
 
-  constructor(env: Env, logger: Logger) {
-    this.secret = env.SECRET_JWT;
+  constructor(secret: string, logger: Logger) {
+    this.secret = secret;
     this.logger = logger;
   }
 

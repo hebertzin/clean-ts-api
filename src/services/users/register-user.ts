@@ -1,4 +1,7 @@
 import UserRepository from '../../repository/users';
+import { HttpStatusCode } from '../../utils/http-status-code';
+import { AppError, UserAlreadyExistError } from '../errors';
+import bcrypt from 'bcrypt';
 
 export type UserDetails = {
   name: string;
@@ -13,16 +16,29 @@ export class RegisterUserService {
     if (!user) {
       throw new Error('Missing params');
     }
-    try {
-      const existentUser = await this.userRepository.findUserByEmail(
-        user.email,
+
+    const existingUser = await this.userRepository.findUserByEmail(user.email);
+
+    if (existingUser) {
+      throw new UserAlreadyExistError(
+        'User already exists',
+        HttpStatusCode.Conflict,
       );
-      if (existentUser) {
-        throw new Error('User already exists');
-      }
-      return await this.userRepository.create(user);
+    }
+
+    const passwordHash = await bcrypt.hash(user.password, 10);
+
+    try {
+      return await this.userRepository.create({
+        email: user.email,
+        name: user.name,
+        password: passwordHash,
+      });
     } catch (e) {
-      throw new Error('Some error has been ocurred');
+      throw new AppError(
+        'Some error creating user',
+        HttpStatusCode.InternalServerError,
+      );
     }
   }
 }
