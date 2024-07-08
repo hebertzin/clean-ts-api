@@ -1,39 +1,54 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
 import db from './database';
 import cors from 'cors';
-import { env } from './env';
 import { logger } from './logger';
-import { logResponseTime } from './middlewares/log-response-middleware';
-import swaggerUi from 'swagger-ui-express';
-import specs from './swagger';
-import bodyParser from 'body-parser';
+
 import authRouter from './routes';
+import { HttpStatusCode } from './utils/http-status-code';
 
-const app = express();
+db.on('connected', () => {});
 
-db.on('connected', () => {
-  logger.info('Connected in database');
-});
+db.on('error', () => {});
 
-db.on('error', (error) => {
-  logger.error('Some error ocurred try connect in database', error);
-});
+export class ExpressApp {
+  private expressApp: Express;
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
-app.use(
-  cors({
-    origin: process.env.ORIGIN_URL,
-  }),
-);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(logResponseTime);
+  constructor() {
+    this.expressApp = express();
+    this.middlewares();
+    this.routes();
+  }
 
-app.use('/api/v1', authRouter);
+  private middlewares(): void {
+    this.expressApp.use(
+      cors({
+        origin: process.env.ORIGIN_URL,
+      }),
+    );
+    this.expressApp.use(express.json());
+    this.expressApp.use(express.urlencoded({ extended: true, limit: '50mb' }));
+  }
 
-app.listen(env.PORT, () => {
-  logger.log({
-    level: 'info',
-    message: 'Server is running seucessfully',
-  });
-});
+  private routes() {
+    this.expressApp.use('/api/v1', authRouter);
+
+    this.expressApp.get('/health', (req: Request, res: Response) => {
+      return res.status(HttpStatusCode.Ok).json({
+        status: 'up',
+        message: 'Aplication is alive!',
+        path: req.path,
+        timestamp: new Date().toISOString(),
+      });
+    });
+  }
+
+  public start(port: number) {
+    return this.expressApp.listen(port, () => {
+      logger.info(`Sever is running on por ${port}!`);
+    });
+  }
+
+  public getApp(): Express {
+    return this.expressApp;
+  }
+}
