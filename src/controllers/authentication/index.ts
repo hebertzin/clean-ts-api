@@ -23,13 +23,18 @@ export class AuthController implements HandleRequestController {
 
     try {
       const { token } = await this.authService.invoke({ email, password });
-      return res.status(HttpStatusCode.Ok).json(token);
-    } catch (e) {
-      return res.status(HttpStatusCode.InternalServerError);
+      return res.status(HttpStatusCode.Ok).json({ token });
+    } catch (error) {
+      return res
+        .status(error.code)
+        .json({ message: error.message, statusCode: error.code });
     }
   }
 }
 
 export const authControllerHandler = new AuthController(
-  new AuthUserService(new UserRepository(), new JwtService(env, logger)),
+  new AuthUserService(
+    new UserRepository(),
+    new JwtService(env.SECRET_JWT, logger),
+  ),
 );
