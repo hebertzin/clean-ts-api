@@ -35,10 +35,8 @@ you can check how the project is structured in `docs/structure.md`.
 - First clone this repository `git clone https://github.com/hebertsanto/API-authentication.git`
 - Navigate to the project and install dependencies with the `npm install` or `npm i` command
 - Create a `.env` file and configure the environment variables correctly, you can check in `.env.exemple` which variables are necessary for the project.
-- Everything configured? Now you can run the command `npm run dev` and that's it!
-- Then just configure the cluster url in the project with your url, which is in the `database/index.ts` directory
+- Everything configured? Now you can run the command `npm run start:dev` and that's it!
 
-## swagger
+## Deploy 
 
-After running the server you will have access to the project documentation at the endpoint `/api-docs` there you will have the endpoints,
-request parameters, required data, status code and responses.
+The service is hosted on @render and will soon be integrated with a front end
