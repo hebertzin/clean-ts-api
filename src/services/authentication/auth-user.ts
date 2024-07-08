@@ -1,6 +1,8 @@
 import { GenerateTokenReturnType, JwtService } from '../../jwt/generate-jwt';
 import UserRepository from '../../repository/users';
 import bcrypt from 'bcrypt';
+import { AppError, CredentialsError, UserDoesNotExist } from '../errors';
+import { HttpStatusCode } from '../../utils/http-status-code';
 
 export type User = {
   password: string;
@@ -17,31 +19,38 @@ export class AuthUserService {
     if (!user) {
       throw new Error('Missing params');
     }
+    const existentUser = await this.userRepository.findUserByEmail(user.email);
+    if (!existentUser) {
+      throw new UserDoesNotExist(
+        'User does not exists',
+        HttpStatusCode.NotFound,
+      );
+    }
+
+    const isValidPassword = await bcrypt.compare(
+      existentUser.password,
+      user.password,
+    );
+
+    if (!isValidPassword) {
+      throw new CredentialsError(
+        'Invalid Credentials',
+        HttpStatusCode.Unauthorized,
+      );
+    }
+
     try {
-      const existentUser = await this.userRepository.findUserByEmail(
-        user.email,
-      );
-      if (!existentUser) {
-        throw new Error('User does not exists');
-      }
-
-      const isValidPassword = await bcrypt.compare(
-        existentUser.password,
-        user.password,
-      );
-
-      if (!isValidPassword) {
-        throw new Error('Invalid Credentials');
-      }
-
-      const accessToken = await this.jwtService.generateJwt({
+      const { token } = await this.jwtService.generateJwt({
         id: existentUser._id,
         email: existentUser.email,
       });
 
-      return accessToken;
+      return { token };
     } catch (e) {
-      throw new Error('Some error has been ocurred');
+      throw new AppError(
+        'Some error has been ocurred making login',
+        HttpStatusCode.InternalServerError,
+      );
     }
   }
 }
