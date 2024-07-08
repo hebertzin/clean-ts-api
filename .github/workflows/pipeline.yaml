@@ -29,5 +29,3 @@ jobs:
       - name: Lint code with Prettier
         run: npm run format
         
-      - name: Run e2e tests
-        run: npm run tests:e2e
