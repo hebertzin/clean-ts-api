@@ -27,7 +27,9 @@ export class RegisterUser implements HandleRequestController {
       });
       return res.status(HttpStatusCode.Created).json(user);
     } catch (error) {
-      return res.status(HttpStatusCode.InternalServerError).json({ error });
+      return res
+        .status(error.code)
+        .json({ message: error.message, statusCode: error.code });
     }
   }
 }
