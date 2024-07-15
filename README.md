@@ -37,6 +37,6 @@ you can check how the project is structured in `docs/structure.md`.
 - Create a `.env` file and configure the environment variables correctly, you can check in `.env.exemple` which variables are necessary for the project.
 - Everything configured? Now you can run the command `npm run start:dev` and that's it!
 
-## Deploy 
+## Deploy
 
 The service is hosted on @render and will soon be integrated with a front end

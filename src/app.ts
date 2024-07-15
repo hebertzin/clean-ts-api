@@ -1,9 +1,9 @@
 import express, { Express, Request, Response } from 'express';
-import db from './database';
+import db from './infra/database';
 import cors from 'cors';
 import { logger } from './logger';
 
-import authRouter from './routes';
+import authRouter from './presentation/routes';
 import { HttpStatusCode } from './utils/http-status-code';
 
 db.on('connected', () => {});

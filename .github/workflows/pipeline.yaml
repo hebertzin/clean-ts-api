@@ -28,4 +28,3 @@ jobs:
 
       - name: Lint code with Prettier
         run: npm run format
-        

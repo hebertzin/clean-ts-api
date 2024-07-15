@@ -1,6 +1,6 @@
 import UserRepository from '../../infra/repository/users';
 import { HttpStatusCode } from '../../utils/http-status-code';
-import { AppError, UserAlreadyExistError } from '../errors';
+import { AppError, UserAlreadyExistError } from '../../errors';
 import bcrypt from 'bcrypt';
 
 export type UserDetails = {

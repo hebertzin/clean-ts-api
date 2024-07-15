@@ -1,11 +1,11 @@
 import {
   GenerateTokenReturnType,
   JwtService,
-} from '../../../infra/jwt/generate-jwt';
-import UserRepository from '../../../infra/repository/users';
+} from '../../infra/jwt/generate-jwt';
+import UserRepository from '../../infra/repository/users';
 import bcrypt from 'bcrypt';
 import { AppError, CredentialsError, UserDoesNotExist } from '../errors';
-import { HttpStatusCode } from '../../../utils/http-status-code';
+import { HttpStatusCode } from '../../utils/http-status-code';
 export type User = {
   password: string;
   email: string;

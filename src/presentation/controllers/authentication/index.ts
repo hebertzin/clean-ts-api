@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { HandleRequestController } from '../../../utils/request-controller';
-import { AuthUserService } from '../../../application/use-cases/authentication/auth-user';
+import { AuthUserService } from '../../../application/authentication/auth-user';
 import { HttpStatusCode } from '../../../utils/http-status-code';
 import UserRepository from '../../../infra/repository/users';
 import { JwtService } from '../../../infra/jwt/generate-jwt';
-import { env } from '../../../config/env';
+import { env } from '../../../infra/env';
 import { logger } from '../../../logger';
 
 const schemaValidation = z.object({
