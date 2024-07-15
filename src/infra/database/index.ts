@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import { logger } from '../logger';
-import { env } from '../env';
+import { logger } from '../../logger';
+import { env } from '../../config/env';
 
 const user = env.USER_DATABASE;
 const password = env.PASSWORD_DATABASE;
