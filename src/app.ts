@@ -1,14 +1,8 @@
 import express, { Express, Request, Response } from 'express';
-import db from './database';
+import { MongoHelper } from './infra/db/mongo-helper';
 import cors from 'cors';
 import { logger } from './logger';
-
-import authRouter from './routes';
 import { HttpStatusCode } from './utils/http-status-code';
-
-db.on('connected', () => {});
-
-db.on('error', () => {});
 
 export class ExpressApp {
   private expressApp: Express;
@@ -43,6 +37,11 @@ export class ExpressApp {
   }
 
   public start(port: number) {
+    MongoHelper.connect(process.env.URI as string)
+      .then(() => {})
+      .catch((e) => {
+        console.log(e);
+      });
     return this.expressApp.listen(port, () => {
       logger.info(`Sever is running on por ${port}!`);
     });

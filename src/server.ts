@@ -1,5 +1,5 @@
 import { ExpressApp } from './app';
-import { env } from './env';
+import { env } from './infra/env';
 
 const app = new ExpressApp();
 

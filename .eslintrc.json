@@ -22,6 +22,6 @@
     "keyword-spacing": "error",
     "space-infix-ops": "error",
     "eol-last": ["error", "always"],
-    "no-trailing-spaces": "error"
+    "no-trailing-spaces": "error",
   }
 }

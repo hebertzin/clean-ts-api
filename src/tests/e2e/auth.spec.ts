@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { ExpressApp as app } from '../../app';
-import database from '../../database';
+import database from '../../infra/database';
 
 describe('/api/v1/authentication/user/access-token', () => {
   it('Should return error if user not exist', async () => {
