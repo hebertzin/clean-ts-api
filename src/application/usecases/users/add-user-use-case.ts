@@ -4,6 +4,7 @@ import { AddUserRepository } from '../../../domain/add-user';
 import { LoadUserByEmailRepository } from '../../../domain/load-user-by-email';
 import { AppError, UserAlreadyExistError } from '../../errors';
 import { Hasher } from '../../../domain/hasher';
+import { Logging } from '../../../domain/logging';
 
 export interface AddUser {
   add(userData: User): Promise<string>;
@@ -14,6 +15,7 @@ export class AddUserUseCase implements AddUser {
     private readonly addUserRepository: AddUserRepository,
     private readonly loadUserByEmailRepository: LoadUserByEmailRepository,
     private readonly hasher: Hasher,
+    private readonly logging: Logging,
   ) {}
   async add(userData: User): Promise<string> {
     const existingUser = await this.loadUserByEmailRepository.loadByEmail(userData.email);
@@ -27,6 +29,7 @@ export class AddUserUseCase implements AddUser {
         password: passwordHash,
       });
     } catch (e) {
+      this.logging.error(`Some error has been ocurred trying create a user ${e}`);
       throw new AppError('Some error creating user', HttpStatusCode.InternalServerError);
     }
   }
