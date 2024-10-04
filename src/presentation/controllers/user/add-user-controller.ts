@@ -3,7 +3,7 @@ import { Controller, HttpResponse } from '../../../domain/controllers';
 import { AddUser } from '../../../application/usecases/users/add-user-use-case';
 import { HttpStatusCode } from '../../../utils/http-status-code';
 
-export class RegisterUser implements Controller {
+export class AddUserController implements Controller {
   constructor(private readonly addUserUseCase: AddUser) {}
   async handle(req: Request): Promise<HttpResponse> {
     try {

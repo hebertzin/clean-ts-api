@@ -24,8 +24,7 @@ export class ExpressApp {
   }
 
   private routes() {
-    this.expressApp.use('/api/v1', authRouter);
-
+    this.expressApp.use('/api/v1');
     this.expressApp.get('/health', (req: Request, res: Response) => {
       return res.status(HttpStatusCode.Ok).json({
         status: 'up',

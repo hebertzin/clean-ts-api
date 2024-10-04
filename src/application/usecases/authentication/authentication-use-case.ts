@@ -1,5 +1,5 @@
 import { LoadUserByEmailRepository } from '../../../domain/load-user-by-email';
-import { HasherCompare } from '../../../domain/bcrypt-compare';
+import { HashComparer } from '../../../domain/bcrypt-compare';
 import { Jwt } from '../../../domain/jwt';
 import { AppError, CredentialsError, UserDoesNotExist } from '../../errors';
 import { HttpStatusCode } from '../../../utils/http-status-code';
@@ -9,7 +9,7 @@ export class AuthenticationUseCase implements Authentication {
   constructor(
     private readonly loadByEmailRepository: LoadUserByEmailRepository,
     private readonly jwt: Jwt,
-    private readonly hasherCompare: HasherCompare,
+    private readonly hasherComparer: HashComparer,
   ) {}
 
   async auth(email: string, password: string): Promise<string> {
@@ -17,7 +17,7 @@ export class AuthenticationUseCase implements Authentication {
     if (!user) {
       throw new UserDoesNotExist('User does not exists', HttpStatusCode.NotFound);
     }
-    const isValidPassword = await this.hasherCompare.compare(user.password, password);
+    const isValidPassword = await this.hasherComparer.compare(user.password, password);
     if (!isValidPassword) {
       throw new CredentialsError('Invalid Credentials', HttpStatusCode.Unauthorized);
     }
