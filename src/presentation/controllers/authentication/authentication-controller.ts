@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { Controller, HttpResponse } from '../../../domain/controllers';
 import { Authentication } from '../../../domain/authentication';
 import { HttpStatusCode } from '../../../utils/http-status-code';
