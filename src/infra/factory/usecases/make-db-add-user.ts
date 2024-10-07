@@ -5,6 +5,5 @@ import { logger } from '../../../logger';
 
 export const makeDbAddUser = (): AddUser => {
   const userRepository = new UserRepository();
-  const addUserUseCase = new AddUserUseCase(userRepository, bcrypt, logger);
-  return addUserUseCase;
+  return new AddUserUseCase(userRepository, bcrypt, logger);
 };
