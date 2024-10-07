@@ -1,3 +1,5 @@
+import { Payload } from '../application/usecases/authentication/authentication-use-case';
+
 export interface Token {
-  generateToken(email: string, password: string): Promise<string>;
+  generateToken(payload: Payload): Promise<string>;
 }
