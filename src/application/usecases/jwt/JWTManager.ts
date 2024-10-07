@@ -10,7 +10,7 @@ export class Jwt implements Token {
   ) {}
   public async generateToken(email: string, password: string): Promise<string> {
     try {
-      return await this.jwtBuilder.setPayload(email, password).setSecret(env.SECRET_JWT).build();
+      return await this.jwtBuilder.setPayload({ email, password }).setSecret(env.SECRET_JWT).build();
     } catch (error) {
       this.logging.error('Some error has been ocurred trying generate a token');
       throw new Error('Some error has been ocurred generating token');
