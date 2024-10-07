@@ -1,18 +1,9 @@
 import { Router } from 'express';
+import { makeAddUserController } from '../../infra/factory/controller/make-add-user-controller';
+import { adaptRoute } from '../../adapters/router-adapter';
 
-const authRouter = Router();
+const router = Router();
 
-import { authControllerHandler } from '../controllers/authentication';
-import { registerAccountHandler } from '../controllers/user';
+router.post('/user/register', adaptRoute(makeAddUserController()));
 
-authRouter.post(
-  '/authentication/user/register',
-  registerAccountHandler.handle.bind(registerAccountHandler),
-);
-
-authRouter.post(
-  '/authentication/user/access-token',
-  authControllerHandler.handle.bind(authControllerHandler),
-);
-
-export default authRouter;
+export default router;

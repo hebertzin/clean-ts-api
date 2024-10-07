@@ -3,6 +3,7 @@ import { MongoHelper } from './infra/db/mongo-helper';
 import cors from 'cors';
 import { logger } from './logger';
 import { HttpStatusCode } from './utils/http-status-code';
+import router from './presentation/routes';
 
 export class ExpressApp {
   private expressApp: Express;
@@ -24,8 +25,7 @@ export class ExpressApp {
   }
 
   private routes() {
-    this.expressApp.use('/api/v1', authRouter);
-
+    this.expressApp.use('/api/v1', router);
     this.expressApp.get('/health', (req: Request, res: Response) => {
       return res.status(HttpStatusCode.Ok).json({
         status: 'up',

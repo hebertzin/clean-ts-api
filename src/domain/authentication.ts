@@ -1,3 +1,5 @@
+import { Payload } from '../application/usecases/authentication/authentication-use-case';
+
 export interface Authentication {
-  auth(email: string, password: string): Promise<string>;
+  auth(payload: Payload): Promise<string>;
 }
