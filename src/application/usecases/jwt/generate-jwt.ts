@@ -3,7 +3,7 @@ import { Token } from '../../../domain/generate-token';
 import { JwtBuilder } from '../../../domain/JWTBuilder';
 import { env } from '../../../infra/env';
 
-export class JwtService implements Token {
+export class Jwt implements Token {
   constructor(
     private readonly jwtBuilder: JwtBuilder,
     private readonly logging: Logging,
